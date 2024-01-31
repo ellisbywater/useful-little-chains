@@ -9,8 +9,9 @@ class RedundantFilterRetriever(BaseRetriever):
     def get_relevant_documents(self, query):
         emb = self.embeddings.embed_query(query)
         return self.chroma.max_marginal_relevance_search_by_vector(
-            embedding=emb
+            embedding=emb,
             lambda_mult=0.8,
+            lambda_add=0.2
         )
     
     async def aget_relevant_documents(self, query):
